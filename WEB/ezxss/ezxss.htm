@@ -1,0 +1,86 @@
+<!--?php
+if(!isset($_GET['user'])&&!isset($_GET['username'])&&!isset($_GET['source'])&&!isset($_GET['query'])){
+    header("Location: ./?username=guest");
+    die();
+}
+$test=md5(uniqid('',true));
+header("Content-Security-Policy:  script-src 'strict-dynamic' 'nonce-$test'; img-src 'self'; style-src 'self';  font-src 'self'; frame-src 'none' ");
+header ( "Cache-Control: no-cache, must-revalidate " );
+function getCurrentUrl(){
+    $scheme = $_SERVER['REQUEST_SCHEME'];
+    $domain = $_SERVER['HTTP_HOST'];
+    $requestUri = $_SERVER['REQUEST_URI'];
+    $currentUrl = $scheme . "://" . $domain . $requestUri;
+    return $currentUrl;
+}
+class user{
+    public $username;
+    public function __wakeup(){
+        if (is_string($this--->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>username)){
+            if (preg_match('/script|&lt;|&gt;|onload|onerror/i',$this-&gt;username)){
+                die('no xss');
+            }
+            else{
+
+                echo '<h1 id="username">'.htmlentities('welcome back '.$this-&gt;username).'</h1>';
+            }
+        }
+        else{
+            echo '<h1 id="username">'.$this-&gt;username.'&nbsp;&nbsp;is&nbsp;&nbsp;not&nbsp;&nbsp;allowed,&nbsp;&nbsp;only&nbsp;&nbsp;string'.'</h1>';
+            file_put_contents('admin.log',$_GET['user']);   //admin will check who attacks him in /admin.php
+
+        }
+    }
+}
+if (isset($_GET['source'])){
+    $text=file_get_contents(__FILE__);
+    echo $text;
+    die();
+}
+if (isset($_GET['query'])){
+    //drive bot to visit your page
+    //source code : browser.get('http://127.0.0.1/?'+sys.argv[1])
+    //query example: 
+    //your url : httP://127.0.0.1/?username=guest
+    //query : username=guest
+    $text=escapeshellarg($_GET['query']);
+    #echo($text);
+    system('python /var/xssbot/xssbot.py '.$text);
+    //sleep(3);
+    die();
+}
+echo "
+
+
+<link rel="stylesheet" href="ezxss_files/stylesheet.css">
+
+";
+echo "<!--?source=1-->\n";
+echo "\n";
+if (isset($_GET['user'])){
+    unserialize(urldecode(base64_decode($_GET['user'])));
+}
+else if(isset($_GET['username'])){
+    echo '<h1 id="username">'.htmlentities('hello '.$_GET['username']).'</h1>';
+
+}
+
+
+
+echo '<div id="particles-js"></div>';
+
+
+echo "
+<script nonce="" src="ezxss_files/jquery-1.js"></script>
+<script nonce="" src="ezxss_files/particles.js"></script>
+<script nonce="" src="ezxss_files/app.js"></script>
+ ";
+echo "
+
+";
+
+
+?&gt;
+</body></html>
